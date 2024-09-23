@@ -14,7 +14,7 @@ npx expo install expo-av
 Salvar no GIT:
 git config --global user.name komachi1ne
 git config --global user.email isabellevasconcelos862@gmail.com
-
+npm i
 
 Executar o projeto:
     Web: npx expo start --web
