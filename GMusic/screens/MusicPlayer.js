@@ -18,7 +18,7 @@ const MusicPlayer = () => {
   const scrollX = useRef(new Animated.Value(0)).current;
 
   useEffect(() => {
-    scrollX.addListener(({value}) => {
+    scrollX.addListener(({ value }) => {
       const index = Math.round(value / width);
       setSongIndex(index);
     });
@@ -72,7 +72,19 @@ const MusicPlayer = () => {
       }
     };
 
-    //83 playpause
+    const play = async () => {
+      if (sound) {
+        setIsPlaying(true);
+        await sound.playAsync();
+      }
+    }
+
+    const pause = async () => {
+      if (sound) {
+        setIsPlaying(false);
+        await sound.pauseAsync();
+      }
+    }
 
   return (
     <SafeAreaView style={styles.container}>
@@ -91,11 +103,11 @@ const MusicPlayer = () => {
             [
               {
                 nativeEvent: {
-                  contentOffset: {x: scrollX},
+                  contentOffset: { x: scrollX},
                 },
               },
             ],
-            {useNativeDriver: true},
+            { useNativeDriver: true },
           )}
         />
 
@@ -130,7 +142,7 @@ const MusicPlayer = () => {
             <Ionicons name='play-skip-back-outline' size={35} color="#FFD369" />
           </TouchableOpacity>
           <TouchableOpacity onPress={handlePlayPause}>
-            <Ionicons name='pause-circle' size={75} color="#FFD369" />
+            <Ionicons name={isPlaying ? "pause-circle" : "play-circle"} size={75} color="#FFD369" />
           </TouchableOpacity>
           <TouchableOpacity onPress={skipToNext}>
             <Ionicons name='play-skip-forward-outline' size={35} color='#FFD369' />
